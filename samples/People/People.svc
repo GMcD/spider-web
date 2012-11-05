@@ -1,0 +1,4 @@
+<%@ ServiceHost Language="C#" Debug="true"
+        Service="Scapa.Test.People"
+        %>
+//         Factory="Scapa.Test.SecureServiceHostFactory"

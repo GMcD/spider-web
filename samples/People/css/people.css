@@ -1,0 +1,40 @@
+﻿@font-face {
+    font-family: Tahoma;
+    font-weight: normal;
+    font-style: normal;
+}
+body { margin: 0px; }
+div 
+{ 
+	font-family: Tahoma; 
+	font-size: 12px;
+}
+
+ul { padding-left: 10px; }
+li { list-style-type: none; }
+li span { display:inline-block; line-height: 18px; }
+
+#treePanel { border-right:1px dotted Navy; width:240px; min-height: 420px; margin-right: 10px; float:left; }
+#panel { width:800px; min-height: 420px; margin-left: 0px; float: left; }
+
+#screen { border:1px dotted navy; float:none; width: 240px; height: 360px; background-color: #AAA; margin: 20px; }
+#logo { float: right; }
+#logo img { width: 48px; padding: 5px; }
+
+#new { background: url(images/new.png) no-repeat; cursor:pointer; }
+#refresh { background: url(images/refresh.png) no-repeat; cursor:pointer; }
+#edit { background: url(images/edit.png) no-repeat; cursor:pointer; }
+#save { background: url(images/save.png) no-repeat; cursor:pointer; }
+#delete { background: url(images/delete.png) no-repeat; cursor:pointer; }
+#up { background: url(images/tick.gif) no-repeat; cursor:pointer; }
+#current { height: 17px; padding: 3px 0px 3px 0px; }
+#actions { height: 17px; padding: 3px 0px 3px 0px; }
+
+.leaves 
+{
+	padding-left:20px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	color: Teal;
+}
+.error { color: Red; }
