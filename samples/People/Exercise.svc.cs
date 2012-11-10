@@ -19,15 +19,15 @@ using ServiceStack.FluentValidation.Results;
 namespace Rum.People
 {
 
-    #region Person Service
+    #region Exercise Service
     /// <summary>
-    /// Person Class is a simple test class for the Person Service.
+    /// Exercise Class is a simple test class for the Exercise Service.
     /// </summary>
     [DataContract]
     [Description("Gary's Person Service, Single Person Implementation.")]
-    [Route("/person/{Id}")]
-    [Route("/person/{Id*}")]
-    public class Person
+    [Route("/exercise/{Id}")]
+    [Route("/exercise/{Id*}")]
+    public class Exercise
     {
         /// <summary>
         /// The IoC container injects the DbFactory from the AppHost
@@ -35,7 +35,7 @@ namespace Rum.People
         public static IDbConnectionFactory DbFactory { get; set; }
 
         /// <summary>
-        /// The Id is an autoincrement property of the Person Store
+        /// The Id is an autoincrement property of the Exercise Store
         /// </summary>
         [DataMember]
         public int Id { get; set; }

@@ -42,14 +42,15 @@ namespace Rum.People
                     DefaultContentType = "application/json"
                 });
          
+		// Fluent Validation
+                Plugins.Add(new ValidationFeature());
+                container.RegisterValidators(typeof(Person).Assembly);
+
                 // Database Connection
                 ConnectionStringSettingsCollection css = ConfigurationManager.ConnectionStrings;
                 string cs = css["storage"].ConnectionString;
                 container.Register<IDbConnectionFactory>(c =>
                     new OrmLiteConnectionFactory(cs, MySqlDialectProvider.Instance));
-
-                Plugins.Add(new ValidationFeature());
-                container.RegisterValidators(typeof(Person).Assembly);
 
                 var loadStore = container.Resolve<StorageService>();
                 loadStore.Get(null);
