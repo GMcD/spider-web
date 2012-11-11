@@ -61,7 +61,7 @@ var exercise = {};
     
     exercise.Activities = Backbone.Collection.extend({
         model: exercise.Activity,
-        url: "file:///android_asset/www/exercise.json",
+        url: "exercise.json",
         comparator: function(activity){
             var date = new Date(activity.get('date'));
             return date.getTime();
