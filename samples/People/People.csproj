@@ -76,7 +76,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="cordova-2.2.0.js" />
+    <Content Include="css\exercise.css" />
+    <Content Include="css\jquery.mobile-1.2.0.css" />
+    <Content Include="exercise.html" />
+    <Content Include="Exercise.svc" />
     <Content Include="Global.asax" />
+    <Content Include="js\exercise.js" />
+    <Content Include="js\formparams.js" />
+    <Content Include="js\jqm-config.js" />
+    <Content Include="js\jquery.mobile-1.2.0.js" />
+    <Content Include="people.html" />
     <Content Include="People.svc" />
     <Content Include="js\backbone-0.9.2.js" />
     <Content Include="js\backbone.marionette.js" />
@@ -132,7 +141,6 @@
     <Content Include="css\jquery-ui-1.8.10.custom.css" />
     <Content Include="css\jquery.treeview.css" />
     <Content Include="css\people.css" />
-    <Content Include="persons.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -144,6 +152,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exercise.svc.cs">
+      <DependentUpon>Exercise.svc</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

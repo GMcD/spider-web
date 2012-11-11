@@ -46,12 +46,12 @@ namespace Rum.People
         [ForeignKey(typeof(Person))]
         public int? Parent { get; set; }
         /// <summary>
-        /// The FirstName property must not be emtpy, and is the First Name of the Person
+        /// The FirstName property must not be empty, and is the First Name of the Person
         /// </summary>
         [DataMember]
         public string FirstName { get; set; }
         /// <summary>
-        /// The LastName property must not be emtpy, and is the Last Name of the Person
+        /// The LastName property must not be empty, and is the Last Name of the Person
         /// </summary>
         [DataMember]
         public string LastName { get; set; }
@@ -294,6 +294,19 @@ namespace Rum.People
                     dbCmd.Insert(new FamilyMember { FamilyId = 2, PersonId = 4 });
                     dbCmd.Insert(new FamilyMember { FamilyId = 2, PersonId = 5 });
                     dbCmd.Insert(new FamilyMember { FamilyId = 2, PersonId = 6 });
+                    trans.Commit();
+                }
+            });
+
+            DbFactory.Exec(dbCmd =>
+            {
+                //Re-Create all table schemas:
+                dbCmd.DropTable<Exercise>();
+                dbCmd.CreateTable<Exercise>();
+                using (var trans = dbCmd.BeginTransaction(IsolationLevel.ReadCommitted))
+                {
+                    dbCmd.Insert(new Exercise { Id = 1, type = "Run", distance = "5 miles", date = DateTime.Parse("13/11/2012", new CultureInfo("en-GB", false)), minutes = 5, comments = "Hello!" });
+                    dbCmd.Insert(new Exercise { Id = 2, type = "Walk", distance = "10 miles", date = DateTime.Parse("14/11/2012", new CultureInfo("en-GB", false)), minutes = 45, comments = "Bye!" });
                     trans.Commit();
                 }
             });
