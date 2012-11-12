@@ -39,7 +39,13 @@ function contractDate(s) { return s && s.substring(0, 5) == "/Date" ? new Date(p
                 
         isoDate: function(){
             var d = this.get('date'); 
-            return d ? d.toISOString().substring(0,10) : '2011-11-11';
+            if ( Object.prototype.toString.call(d) === "[object Date]" ) 
+                return d.toISOString().substring(0,10);
+            else {
+                var m = JSON.stringify(d);
+                console.log(m);
+                return d;
+            }
         },
         
         // Add isoDate value for HTML5 date picker and display
