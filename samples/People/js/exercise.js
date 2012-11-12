@@ -2,6 +2,7 @@
 /*global _, jQuery, $, console, Backbone */
 
 var exercise = {};
+/* This returns a Date object, if from ServiceStack, otherwise the input */
 function contractDate(s) { return s && s.substring(0, 5) == "/Date" ? new Date(parseFloat(/Date\(([^)]+)\)/.exec(s)[1])) : s ; }
 
 (function($){
@@ -19,7 +20,7 @@ function contractDate(s) { return s && s.substring(0, 5) == "/Date" ? new Date(p
             comments: ''
         },
         parse: function (data) {
-            data.date = contractDate(data.date);
+            if (data) data.date = contractDate(data.date);
             return data;
         },
         
@@ -27,6 +28,7 @@ function contractDate(s) { return s && s.substring(0, 5) == "/Date" ? new Date(p
             var aDate;
             if (attributes.date){
                 //TODO future version - make sure date is valid format during input
+                console.log(attributes.date);
                 aDate = new Date(attributes.date);
                 if ( Object.prototype.toString.call(aDate) === "[object Date]" && !isNaN(aDate.getTime()) ){
                     attributes.date = aDate;
@@ -34,41 +36,19 @@ function contractDate(s) { return s && s.substring(0, 5) == "/Date" ? new Date(p
             }
             Backbone.Model.prototype.set.call(this, attributes, options);
         },
-        
-        dateInputType: function(){
-            return exercise.formatDate(this.get('date'), "yyyy-mm-dd");//https://github.com/jquery/jquery-mobile/issues/2755
+                
+        isoDate: function(){
+            var d = this.get('date'); 
+            return d ? d.toISOString().substring(0,10) : '2011-11-11';
         },
         
-        displayDate: function(){
-            return exercise.formatDate(this.get('date'), "mm/dd/yyyy");
-        },
-        
+        // Add isoDate value for HTML5 date picker and display
         toJSON: function(){
             var json = Backbone.Model.prototype.toJSON.call(this);
-            return _.extend(json, {dateInputType : this.dateInputType(), displayDate: this.displayDate()});
+            return _.extend(json, {isoDate: this.isoDate()});
         }
     });
-    
-    exercise.formatDate = function(date, formatString){
-        var yyyy, month, mm, day, dd, formatedDate;
-        
-        if (date instanceof Date){
-            yyyy = date.getFullYear();
-            month = date.getMonth() + 1;
-            mm = month < 10 ? "0" + month : month;
-            day = date.getDate();
-            dd = day < 10 ? "0" + day : day;
-            
-            formatedDate = formatString.replace(/yyyy/i, yyyy);
-            formatedDate = formatedDate.replace(/mm/i, mm);
-            formatedDate = formatedDate.replace(/dd/i, dd);
-        } else {
-            formatedDate = "";
-        }
-        
-        return formatedDate;
-    };
-    
+ 
     ///////////////////////////////////////////////////////////////////
     // Collection
     //////////////////////////////////////////////////////////////////

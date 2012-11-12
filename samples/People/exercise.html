@@ -17,13 +17,13 @@
 
     <!-- templates -->
     <script type="text/template" id="activity-list-item-template">
-      <li><a href="#activity-details" identifier="<%= id %>"><%= displayDate %> - <%= type %></a></li>
+      <li><a href="#activity-details" identifier="<%= id %>"><%= isoDate %> - <%= type %></a></li>
     </script>
 
     <script type="text/template" id="activity-details-template">
         <h3><%= type %></h3>
         <ul data-role="listview" id="activitiy-fields" data-inset="true">
-          <li>Date: <%= displayDate %></li>
+          <li>Date: <%= isoDate %></li>
           <li>Duration: <%= duration %></li>
           <li>Distance: <%= distance %></li>
           <li>Comments: <%= comments %></li>
@@ -32,11 +32,7 @@
 
     <script type="text/template" id="activity-form-template">
         <label for="date" class="select">Date</label>
-        <% if (navigator.userAgent.indexOf('iPhone') >= 0 || navigator.userAgent.indexOf('iPad') >= 0) { %>
-            <input type="date" name="date" id="date" placeholder="Date" value="<%= dateInputType %>" />
-        <% }else{ %>
-            <input type="date" name="date" id="date" placeholder="Date" value="<%= displayDate %>" />
-        <% } %>
+        <input type="date" name="date" id="date" placeholder="Date" value="<%= isoDate %>" />
 
         <label for="type" class="select">Type</label>
         <select name="type" id="type">
