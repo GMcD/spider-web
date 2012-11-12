@@ -3,6 +3,7 @@ using ServiceStack.WebHost.Endpoints;
 using ServiceStack.OrmLite;
 using ServiceStack.OrmLite.MySql;
 using System.Configuration;
+using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.Validation;
 
 namespace Rum.People
@@ -31,7 +32,7 @@ namespace Rum.People
             /// <param name="container"></param>
             public override void Configure(Funq.Container container) {
 
-                SetConfig(new EndpointHostConfig
+/*                SetConfig(new EndpointHostConfig
                 {
                     GlobalResponseHeaders = {
                          { "Access-Control-Allow-Origin", "*" },
@@ -40,9 +41,12 @@ namespace Rum.People
                          { "X-Powered-On", Environment.MachineName}
                     },
                     DefaultContentType = "application/json"
-                });
+                }); */
          
-		// Fluent Validation
+                // Auto Add all Routes
+                Routes.AddFromAssembly(typeof(Person).Assembly);
+
+		        // Fluent Validation
                 Plugins.Add(new ValidationFeature());
                 container.RegisterValidators(typeof(Person).Assembly);
 

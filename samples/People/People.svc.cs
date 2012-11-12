@@ -305,8 +305,9 @@ namespace Rum.People
                 dbCmd.CreateTable<Exercise>();
                 using (var trans = dbCmd.BeginTransaction(IsolationLevel.ReadCommitted))
                 {
-                    dbCmd.Insert(new Exercise { Id = 1, type = "Run", distance = "5 miles", date = DateTime.Parse("13/11/2012", new CultureInfo("en-GB", false)), minutes = 5, comments = "Hello!" });
-                    dbCmd.Insert(new Exercise { Id = 2, type = "Walk", distance = "10 miles", date = DateTime.Parse("14/11/2012", new CultureInfo("en-GB", false)), minutes = 45, comments = "Bye!" });
+                    dbCmd.Insert(new Exercise { id = 1, type = "Run", distance = "5 miles", date = DateTime.Parse("13/11/2012", new CultureInfo("en-GB", false)), duration = "5 mins", comments = "Hello!" });
+                    dbCmd.Insert(new Exercise { id = 2, type = "Walk", distance = "10 miles", date = DateTime.Parse("14/11/2012", new CultureInfo("en-GB", false)), duration = "half an hour", comments = "Bye!" });
+                    dbCmd.Insert(new Exercise { id = 3, type = "Swim", distance = "1 miles", date = DateTime.Parse("12/11/2012", new CultureInfo("en-GB", false)), duration = "quarter hour", comments = "Splash!" });
                     trans.Commit();
                 }
             });

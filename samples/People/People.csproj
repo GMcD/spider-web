@@ -80,6 +80,7 @@
     <Content Include="css\jquery.mobile-1.2.0.css" />
     <Content Include="exercise.html" />
     <Content Include="Exercise.svc" />
+    <Content Include="Forms.html" />
     <Content Include="Global.asax" />
     <Content Include="js\exercise.js" />
     <Content Include="js\formparams.js" />

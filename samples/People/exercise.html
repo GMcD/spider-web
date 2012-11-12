@@ -24,7 +24,7 @@
         <h3><%= type %></h3>
         <ul data-role="listview" id="activitiy-fields" data-inset="true">
           <li>Date: <%= displayDate %></li>
-          <li>Minutes: <%= minutes %></li>
+          <li>Duration: <%= duration %></li>
           <li>Distance: <%= distance %></li>
           <li>Comments: <%= comments %></li>
         </ul>
@@ -49,8 +49,8 @@
         <label for="distance">Distance</label>
         <input type="text" name="distance" id="distance" placeholder="" value="<%= distance %>" />
 
-        <label for="minutes">Minutes</label>
-        <input type="tel" name="minutes" id="minutes" placeholder="" value="<%= minutes %>" />
+        <label for="duration">Duration</label>
+        <input type="text" name="duration" id="duration" placeholder="" value="<%= duration %>" />
 
         <div data-role="fieldcontain">
             <textarea name="comments" id="comments" placeholder="Comments"><%= comments %></textarea>

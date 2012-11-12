@@ -25,9 +25,8 @@ namespace Rum.People
     /// </summary>
     [DataContract]
     [Description("Gary's Exercise Service.")]
-    [Route("/exercise/{Id}")]
-    [Route("/exercise/{Id*}")]
-    public class Exercise
+    [Route("/exercise/{id}")]
+    public class Exercise : IEquatable<Exercise>
     {
         /// <summary>
         /// The IoC container injects the DbFactory from the AppHost
@@ -35,55 +34,61 @@ namespace Rum.People
         public static IDbConnectionFactory DbFactory { get; set; }
 
         /// <summary>
-        /// The Id is an autoincrement property of the Exercise Store
+        /// The id is an autoincrement property of the Exercise Store, (currently) utilised in exercise.html
         /// </summary>
+        [AutoIncrement]
         [DataMember]
-        public int Id { get; set; }
+        public int? id { get; set; }
         /// <summary>
-        /// The Date property of the Exercise identifies the time
+        /// The Date property of the Exercise identifies the day
         /// </summary>
         [DataMember]
         public DateTime date { get; set; }
         /// <summary>
-        /// The Type property must not be emtpy, and is the First Name of the Person
+        /// The type property is one of Bike, Ride, Swim, Walk as (currently) enumerated in exercise.html
         /// </summary>
         [DataMember]
         public string type { get; set; }
         /// <summary>
-        /// The LastName property must not be emtpy, and is the Last Name of the Person
+        /// The distance field of the exercise is also freeform text, miles or whatever
         /// </summary>
         [DataMember]
         public string distance { get; set; }
         /// <summary>
-        /// The nullable DateOfBirth is the date of birth of the Person
+        /// The duration property of the Exercise will be generated from the end time?
+        /// </summary>
+        [DataMember]
+        public string duration { get; set; }
+        /// <summary>
+        /// The comments field of the exercise is freeform text
         /// </summary>
         [DataMember]
         public string comments { get; set; }
-        /// <summary>
-        /// The minutes property of the Exercise will generated the end time?
-        /// </summary>
-        public int minutes { get; set; }
 
+        // IEquatable Interface
+        public bool Equals(Exercise o)
+        {
+            // Dates are tricky!
+            TimeSpan ts = o.date - date;
+            return o.id == id && o.type == type && o.duration == duration && o.comments == comments && o.distance == distance ;
+        }
     }
 
     [DataContract]
     public class ExerciseResponse : IHasResponseStatus
     {
-        // This mixes the 'all data' for client and the 'server methods' ideas - fix with facade?
-        public ExerciseResponse(Exercise exercise)
-        {
-            this.Exercise = exercise;
-            this.ResponseStatus = new ResponseStatus();
-        }
-
+        /// <summary>
+        /// This allows the new method (OnPut) to return a list, which is strictly not necessary...
+        /// The method should just redirect to the new element, via Location Header 
+        /// </summary>
         public ExerciseResponse()
         {
-            this.Exercise = new Exercise();
+            this.Exercises = new List<Exercise>();
             this.ResponseStatus = new ResponseStatus();
         }
 
         [DataMember]
-        public Exercise Exercise { get; set; }
+        public List<Exercise> Exercises { get; set; }
         [DataMember]
         public ResponseStatus ResponseStatus { get; set; }
     }
@@ -96,38 +101,29 @@ namespace Rum.People
         public IDbConnectionFactory DbFactory { get; set; }
 
         /// <summary>
-        /// GET /egg/exercise/{Id} 
+        /// GET /egg/exercise/{id} to return single exercise, /egg/exercise to return collection
         /// </summary>
         public override object OnGet(Exercise request)
         {
-            return DbFactory.Run(dbCmd => dbCmd.GetById<Exercise>(request.Id));
-        //    Exercise exercise = DbFactory.Run(dbCmd => dbCmd.GetById<Exercise>(request.Id));
-        //    return new ExerciseResponse { Exercise = exercise, ResponseStatus = new ResponseStatus() };
+            if (request.id.HasValue)
+                return DbFactory.Run(dbCmd => dbCmd.GetById<Exercise>(request.id.Value));
+
+            return DbFactory.Run(dbCmd => dbCmd.Select<Exercise>() );
         }
 
         /// <summary>
-        /// POST /egg/exercise/{newExerciseId}
+        /// POST /egg/exercise which redirects to /egg/exercise/{newExerciseId}
         /// </summary>
         public override object OnPost(Exercise exercise)
         {
-            var newPersonId = DbFactory.Run(dbCmd =>
+            var newExerciseId = DbFactory.Run(dbCmd =>
             {
                 dbCmd.Insert(exercise);
                 return dbCmd.GetLastInsertId();
             });
 
-            var newExercise = new ExerciseResponse
-            {
-                Exercise = DbFactory.Run(dbCmd => dbCmd.GetById<Exercise>(newPersonId)),
-            };
+            return DbFactory.Run(dbCmd => dbCmd.GetById<Exercise>(newExerciseId));
 
-            return new HttpResult(newExercise)
-            {
-                StatusCode = HttpStatusCode.Created,
-                Headers = {
-					{ HttpHeaders.Location, this.RequestContext.AbsoluteUri.WithTrailingSlash() + newPersonId }
-				}
-            };
         }
 
         /// <summary>
@@ -135,58 +131,19 @@ namespace Rum.People
         /// </summary>
         public override object OnPut(Exercise exercise)
         {
-            DbFactory.Run(dbCmd => dbCmd.Save(exercise));
+            DbFactory.Exec(dbCmd => dbCmd.Update(exercise));
             return null;
         }
 
         /// <summary>
-        /// DELETE /egg/exercise/{Id}
+        /// DELETE /egg/exercise/{id}
         /// </summary>
         public override object OnDelete(Exercise exercise)
         {
-            DbFactory.Run(dbCmd => dbCmd.DeleteById<Exercise>(exercise.Id));
+            DbFactory.Run(dbCmd => dbCmd.DeleteById<Exercise>(exercise.id));
             return null;
         }
 
-    }
-    #endregion
-
-    #region Exercises Service
-    [DataContract]
-    [Description("Gary's Exercise Service, Exercises Implementation.")]
-    [RestService("/exercise")]
-    public class Exercises
-    {
-        [DataMember]
-        public int? Id { get; set; }
-    }
-
-    [DataContract]
-    public class ExercisesResponse
-    {
-        public ExercisesResponse(){
-            Exercises = new List<Exercise>();
-        }
-        [DataMember]
-        public List<Exercise> Exercises { get; set; }
-    }
-
-    /// <summary>
-    /// Returns a Collection of Exercises
-    /// </summary>
-    public class ExercisesService : RestServiceBase<Exercises>
-    {
-        public IDbConnectionFactory DbFactory { get; set; }
-
-        /// <summary>
-        /// Return a collection of Exercises
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        public override object OnGet(Exercises request)
-        {
-            return DbFactory.Run(dbCmd => new ExercisesResponse { Exercises = dbCmd.Select<Exercise>() });
-        }
     }
     #endregion
 

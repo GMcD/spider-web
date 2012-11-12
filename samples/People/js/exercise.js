@@ -2,15 +2,25 @@
 /*global _, jQuery, $, console, Backbone */
 
 var exercise = {};
+function contractDate(s) { return s && s.substring(0, 5) == "/Date" ? new Date(parseFloat(/Date\(([^)]+)\)/.exec(s)[1])) : s ; }
 
 (function($){
+
+    ///////////////////////////////////////////////////////////////////
+    // Model
+    //////////////////////////////////////////////////////////////////
     exercise.Activity = Backbone.Model.extend({
-        defaults: {
+       defaults: {
+            id: null,
             date: new Date(),
             type: '',
             distance: '',
-            comments: '',
-            minutes: ''
+            duration: '',
+            comments: ''
+        },
+        parse: function (data) {
+            data.date = contractDate(data.date);
+            return data;
         },
         
         set: function(attributes, options) {
@@ -52,22 +62,28 @@ var exercise = {};
             formatedDate = formatString.replace(/yyyy/i, yyyy);
             formatedDate = formatedDate.replace(/mm/i, mm);
             formatedDate = formatedDate.replace(/dd/i, dd);
-        }else{
+        } else {
             formatedDate = "";
         }
         
         return formatedDate;
     };
     
+    ///////////////////////////////////////////////////////////////////
+    // Collection
+    //////////////////////////////////////////////////////////////////
     exercise.Activities = Backbone.Collection.extend({
         model: exercise.Activity,
-        url: "exercise.json",
+        url: "/egg/exercise",
         comparator: function(activity){
             var date = new Date(activity.get('date'));
             return date.getTime();
         }
     });
     
+    ///////////////////////////////////////////////////////////////////
+    // Views
+    //////////////////////////////////////////////////////////////////
     exercise.ActivityListView = Backbone.View.extend({
         tagName: 'ul',
         id: 'activities-list',
@@ -102,9 +118,9 @@ var exercise = {};
                 renderedItem = template(item.toJSON()),
                 $renderedItem = $(renderedItem);
                 
-            $renderedItem.jqmData('activityId', item.get('id'));
+            $renderedItem.jqmData('activityId', item.id);
             $renderedItem.bind('click', function(){
-                //set the activity id on the page element for use in the details pagebeforeshow event
+                // set the activity id on the page element for use in the details pagebeforeshow event
                 $('#activity-details').jqmData('activityId', $(this).jqmData('activityId'));  //'this' represents the element being clicked
             });
             
@@ -116,8 +132,9 @@ var exercise = {};
         }
     });
     
+    //////////////////////////////////////////////////////////////////////////////////////
     exercise.ActivityDetailsView = Backbone.View.extend({
-        //since this template will render inside a div, we don't need to specify a tagname
+        // since this template will render inside a div, we don't need to specify a tagname
         initialize: function() {
             this.template = _.template($('#activity-details-template').html());
         },
@@ -133,8 +150,9 @@ var exercise = {};
         }
     });
     
+    //////////////////////////////////////////////////////////////////////////////////////
     exercise.ActivityFormView = Backbone.View.extend({
-        //since this template will render inside a div, we don't need to specify a tagname, but we do want the fieldcontain
+        // since this template will render inside a div, we don't need to specify a tagname, but we do want the fieldcontain
         attributes: {"data-role": 'fieldcontain'},
         
         initialize: function() {
@@ -153,7 +171,8 @@ var exercise = {};
     
     exercise.initData = function(){
         exercise.activities = new exercise.Activities();
-        exercise.activities.fetch({async: false});  // use async false to have the app wait for data before rendering the list
+        // use async false to have the app wait for data before rendering the list
+        exercise.activities.fetch({async: false});  
     };
     
 }(jQuery));
@@ -214,14 +233,40 @@ $(document).ready(function(){
         }
         
         if (activityId){
-            //editing
+            // editing
             activity = exercise.activities.get(activityId);
-            activity.set(formJSON); //not calling save since we have no REST backend...save in memory
-        }else{
-            //new (since we have no REST backend, create a new model and add to collection to prevent Backbone making REST calls)
+            activity.set(formJSON);
+            activity.save(null, {
+                    wait: true,
+                    success: function (model, response, options) {
+                        var m = JSON.stringify(model);
+                        alert('Exercise saved successfully : ' + m);
+                    },
+                    error: function (model, xhr, options) {
+                        var m = JSON.stringify(xhr);
+                        alert(m);
+                        var resp = JSON.parse(xhr.responseText);
+                        if (resp.ResponseMessage) alert(resp.ResponseStatus.Message);
+                        else alert(xhr.responseText);
+                    }
+                });
+        } else {
+            // new 
             activity = new exercise.Activity(formJSON);
-            activity.set({'id': new Date().getTime()});  //create some identifier
             exercise.activities.add(activity);
+            activity.save(null, {
+                    wait: true,
+                    success: function (model, response, options) {
+                        var m = JSON.stringify(model);
+                        alert('Exercise saved successfully : ' + m);
+                        activityId = model.id;
+                    },
+                    error: function (model, xhr, options) {
+                        var resp = JSON.parse(xhr.responseText);
+                        if (resp.ResponseMessage) alert(resp.ResponseStatus.Message);
+                        else alert(xhr.responseText);
+                    }
+                });
         }
     });
 });
