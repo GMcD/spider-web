@@ -40,10 +40,10 @@
 
         <label for="type" class="select">Type</label>
         <select name="type" id="type">
-            <option>Run</option>
-            <option>Bike</option>
-            <option>Swim</option>
-            <option>Walk</option>
+            <option<% if ( type == "Run" ) {%> selected="true" <% } %>>Run</option>
+            <option<% if ( type == "Bike" ) {%> selected="true" <% } %>>Bike</option>
+            <option<% if ( type == "Swim" ) {%> selected="true" <% } %>>Swim</option>
+            <option<% if ( type == "Walk" ) {%> selected="true" <% } %>>Walk</option>
         </select>
 
         <label for="distance">Distance</label>
