@@ -20,19 +20,31 @@ namespace Rum.People
 {
 
     #region Exercise Service
+
+    [DataContract]
+    [Description("Modes of Exercise")]
+    public class Mode
+    {
+        /// <summary>
+        /// The id is an autoincrement property of the Exercise Mode
+        /// </summary>
+        [AutoIncrement]
+        [DataMember]
+        public int? id { get; set; }
+        /// <summary>
+        /// Type of Exercise, Bike, Swim etc
+        /// </summary>
+        [DataMember]
+        public string name { get; set; }
+    }
+
     /// <summary>
     /// Exercise Class is a simple test class for the Exercise Service.
     /// </summary>
     [DataContract]
-    [Description("Gary's Exercise Service.")]
-    [Route("/exercise/{id}")]
+    [Description("Exercise Type, Length and Comments.")]
     public class Exercise : IEquatable<Exercise>
     {
-        /// <summary>
-        /// The IoC container injects the DbFactory from the AppHost
-        /// </summary>
-        public static IDbConnectionFactory DbFactory { get; set; }
-
         /// <summary>
         /// The id is an autoincrement property of the Exercise Store, (currently) utilised in exercise.html
         /// </summary>
@@ -48,7 +60,8 @@ namespace Rum.People
         /// The type property is one of Bike, Ride, Swim, Walk as (currently) enumerated in exercise.html
         /// </summary>
         [DataMember]
-        public string type { get; set; }
+        [ForeignKey(typeof(Mode))]
+        public int mode { get; set; }
         /// <summary>
         /// The distance field of the exercise is also freeform text, miles or whatever
         /// </summary>
@@ -70,7 +83,7 @@ namespace Rum.People
         {
             // Dates are tricky!
             TimeSpan ts = o.date - date;
-            return o.id == id && o.type == type && o.duration == duration && o.comments == comments && o.distance == distance ;
+            return o.id == id && o.mode == mode && o.duration == duration && o.comments == comments && o.distance == distance ;
         }
     }
 
@@ -91,6 +104,22 @@ namespace Rum.People
         public List<Exercise> Exercises { get; set; }
         [DataMember]
         public ResponseStatus ResponseStatus { get; set; }
+    }
+
+    public class ModeService : RestServiceBase<Mode>
+    {
+        /// <summary>
+        /// The DbFactory is injected by the Funq IoC container, currently MySQL
+        /// </summary>
+        public IDbConnectionFactory DbFactory { get; set; }
+
+        /// <summary>
+        /// GET /egg/exercise/{id} to return single exercise, /egg/exercise to return collection
+        /// </summary>
+        public override object OnGet(Mode request)
+        {
+            return DbFactory.Run(dbCmd => dbCmd.Select<Mode>());
+        }
     }
 
     public class ExerciseService : RestServiceBase<Exercise>

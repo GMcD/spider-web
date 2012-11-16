@@ -190,6 +190,7 @@ $(document).ready(function(){
             activityDetailsView,
             activityId = $('#activity-details').jqmData('activityId'),
             activityModel = exercise.activities.get(activityId);
+            activityModel.fetch({async:false});
     
         activityDetailsView = new exercise.ActivityDetailsView({model: activityModel, viewContainer: activitiesDetailsContainer});
         activityDetailsView.render();

@@ -33,7 +33,7 @@ namespace People.Test
         [Test]
         public void putExercise()
         {
-            Exercise exercise = new Exercise { date = DateTime.Now, type = "Swim", duration = "5 mins", distance = "10km", comments = "putExercise Test" };
+            Exercise exercise = new Exercise { date = DateTime.Now, mode = 5, duration = "5 mins", distance = "10km", comments = "putExercise Test" };
             Exercise newExercise = jsonRestClient.Post<Exercise>("/exercise", exercise);
             Assert.AreEqual(newExercise.id, 4);
             exercise.id = 4;
