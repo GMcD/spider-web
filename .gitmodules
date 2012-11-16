@@ -1,0 +1,3 @@
+[submodule "samples/People.Ui"]
+	path = samples/People.Ui
+	url = https://github.com/GMcD/spiders.git
