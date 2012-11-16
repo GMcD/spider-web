@@ -32,16 +32,20 @@ namespace Rum.People
             /// <param name="container"></param>
             public override void Configure(Funq.Container container) {
 
-/*                SetConfig(new EndpointHostConfig
+		string soon = DateTime.Now.AddSeconds(10).ToUniversalTime().ToString("ddd, dd MMM yyyy HH:mm:ss 'GMT'");
+                SetConfig(new EndpointHostConfig
                 {
                     GlobalResponseHeaders = {
                          { "Access-Control-Allow-Origin", "*" },
                          { "Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS" },
                          { "Access-Control-Allow-Headers", "Content-Type" },
+			 { "Cache-Control", "no-cache, no-store, must-revalidate"},
+			 { "Pragma", "no-cache"},
+			 { "Expires", "0"},
                          { "X-Powered-On", Environment.MachineName}
                     },
                     DefaultContentType = "application/json"
-                }); */
+                });
          
                 // Auto Add all Routes
                 Routes.AddFromAssembly(typeof(Person).Assembly);

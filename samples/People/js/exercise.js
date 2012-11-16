@@ -28,7 +28,7 @@ function contractDate(s) { return s && s.substring(0, 5) == "/Date" ? new Date(p
             var aDate;
             if (attributes.date){
                 //TODO future version - make sure date is valid format during input
-                console.log(attributes.date);
+                // console.log(attributes.date);
                 aDate = new Date(attributes.date);
                 if ( Object.prototype.toString.call(aDate) === "[object Date]" && !isNaN(aDate.getTime()) ){
                     attributes.date = aDate;
@@ -43,7 +43,7 @@ function contractDate(s) { return s && s.substring(0, 5) == "/Date" ? new Date(p
                 return d.toISOString().substring(0,10);
             else {
                 var m = JSON.stringify(d);
-                console.log(m);
+                // console.log(m);
                 return d;
             }
         },
@@ -185,7 +185,7 @@ $(document).ready(function(){
     });
 
     $('#activity-details').live('pagebeforeshow', function(){
-        console.log('activityId: ' + $('#activity-details').jqmData('activityId'));
+        // console.log('activityId: ' + $('#activity-details').jqmData('activityId'));
         var activitiesDetailsContainer = $('#activity-details').find(":jqmData(role='content')"),
             activityDetailsView,
             activityId = $('#activity-details').jqmData('activityId'),
