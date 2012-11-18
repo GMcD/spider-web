@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "People", "People\People.csproj", "{D16E5A8C-0E38-414D-BC06-B8D625C6AE2F}"
@@ -7,7 +7,7 @@ Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "Documentation", "Documentat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "People.Test", "People.Test\People.Test.csproj", "{66BBABEE-E3B1-4FAB-B2E8-62AAE3552AFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "People.Ui", "People.Ui\People.Ui.csproj", "{0D6AC757-E8DE-4A9D-B6AC-1D99D94E120A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "People.Web", "People.Web\People.Web.csproj", "{0D6AC757-E8DE-4A9D-B6AC-1D99D94E120A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

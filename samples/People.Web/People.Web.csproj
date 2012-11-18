@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0D6AC757-E8DE-4A9D-B6AC-1D99D94E120A}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>People.Ui</RootNamespace>
+    <AssemblyName>People.Ui</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <UseIISExpress>false</UseIISExpress>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="assets\www\app.html" />
+    <Content Include="assets\www\cordova-2.2.0.js" />
+    <Content Include="assets\www\css\exercise.css" />
+    <Content Include="assets\www\css\images\ajax-loader-orig.gif" />
+    <Content Include="assets\www\css\images\ajax-loader.gif" />
+    <Content Include="assets\www\css\images\Bee-Art-Final.png" />
+    <Content Include="assets\www\css\images\busy.gif" />
+    <Content Include="assets\www\css\images\delete.jpg" />
+    <Content Include="assets\www\css\images\delete.png" />
+    <Content Include="assets\www\css\images\delete2.png" />
+    <Content Include="assets\www\css\images\edit.jpg" />
+    <Content Include="assets\www\css\images\edit.png" />
+    <Content Include="assets\www\css\images\file.gif" />
+    <Content Include="assets\www\css\images\folder-closed.gif" />
+    <Content Include="assets\www\css\images\folder.gif" />
+    <Content Include="assets\www\css\images\icons-18-black.png" />
+    <Content Include="assets\www\css\images\icons-18-white.png" />
+    <Content Include="assets\www\css\images\icons-36-black.png" />
+    <Content Include="assets\www\css\images\icons-36-white.png" />
+    <Content Include="assets\www\css\images\minus.gif" />
+    <Content Include="assets\www\css\images\new.gif" />
+    <Content Include="assets\www\css\images\new.png" />
+    <Content Include="assets\www\css\images\plus.gif" />
+    <Content Include="assets\www\css\images\question.gif" />
+    <Content Include="assets\www\css\images\refresh.png" />
+    <Content Include="assets\www\css\images\reload.gif" />
+    <Content Include="assets\www\css\images\save.png" />
+    <Content Include="assets\www\css\images\Small-Bee-Art-Final.png" />
+    <Content Include="assets\www\css\images\tick.gif" />
+    <Content Include="assets\www\css\images\trash.gif" />
+    <Content Include="assets\www\css\images\treeview-black-line.gif" />
+    <Content Include="assets\www\css\images\treeview-black.gif" />
+    <Content Include="assets\www\css\images\treeview-default-line.gif" />
+    <Content Include="assets\www\css\images\treeview-default.gif" />
+    <Content Include="assets\www\css\images\treeview-famfamfam-line.gif" />
+    <Content Include="assets\www\css\images\treeview-famfamfam.gif" />
+    <Content Include="assets\www\css\images\treeview-gray-line.gif" />
+    <Content Include="assets\www\css\images\treeview-gray.gif" />
+    <Content Include="assets\www\css\images\treeview-red-line.gif" />
+    <Content Include="assets\www\css\images\treeview-red.gif" />
+    <Content Include="assets\www\css\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="assets\www\css\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="assets\www\css\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="assets\www\css\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="assets\www\css\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="assets\www\css\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="assets\www\css\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="assets\www\css\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="assets\www\css\images\ui-icons_222222_256x240.png" />
+    <Content Include="assets\www\css\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="assets\www\css\images\ui-icons_454545_256x240.png" />
+    <Content Include="assets\www\css\images\ui-icons_888888_256x240.png" />
+    <Content Include="assets\www\css\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="assets\www\css\index.css" />
+    <Content Include="assets\www\css\jquery-ui-1.8.10.custom.css" />
+    <Content Include="assets\www\css\jquery.mobile-1.2.0.css" />
+    <Content Include="assets\www\css\jquery.treeview.css" />
+    <Content Include="assets\www\css\jquery.ui.datepicker.mobile.css" />
+    <Content Include="assets\www\css\people.css" />
+    <Content Include="assets\www\details.html" />
+    <Content Include="assets\www\exercise.html" />
+    <Content Include="assets\www\index.html" />
+    <Content Include="assets\www\js\app.js" />
+    <Content Include="assets\www\js\backbone-0.9.2.js" />
+    <Content Include="assets\www\js\backbone.marionette.js" />
+    <Content Include="assets\www\js\details.js" />
+    <Content Include="assets\www\js\exercise.js" />
+    <Content Include="assets\www\js\formparams.js" />
+    <Content Include="assets\www\js\index.js" />
+    <Content Include="assets\www\js\jqm-config.js" />
+    <Content Include="assets\www\js\jquery-1.8.2.js" />
+    <Content Include="assets\www\js\jquery-ui-1.8.10.custom.min.js" />
+    <Content Include="assets\www\js\jquery.cookie.js" />
+    <Content Include="assets\www\js\jquery.mobile-1.2.0.js" />
+    <Content Include="assets\www\js\jquery.mobile-1.2.0.min.js" />
+    <Content Include="assets\www\js\jquery.treeview.async.js" />
+    <Content Include="assets\www\js\jquery.treeview.js" />
+    <Content Include="assets\www\js\jquery.ui.datepicker.js" />
+    <Content Include="assets\www\js\jquery.ui.datepicker.mobile.js" />
+    <Content Include="assets\www\js\jsonreport.js" />
+    <Content Include="assets\www\js\people.js" />
+    <Content Include="assets\www\js\underscore-1.4.2.js" />
+    <Content Include="assets\www\main.js" />
+    <Content Include="assets\www\master.css" />
+    <Content Include="assets\www\master.html" />
+    <Content Include="assets\www\people.html" />
+    <Content Include="assets\www\spec.html" />
+    <Content Include="assets\www\spec\helper.js" />
+    <Content Include="assets\www\spec\index.js" />
+    <Content Include="assets\www\spec\lib\jasmine-1.2.0\jasmine-html.js" />
+    <Content Include="assets\www\spec\lib\jasmine-1.2.0\jasmine.css" />
+    <Content Include="assets\www\spec\lib\jasmine-1.2.0\jasmine.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\www\spec\lib\jasmine-1.2.0\MIT.LICENSE" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>8728</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
