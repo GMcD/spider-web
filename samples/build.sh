@@ -4,4 +4,4 @@ mysql < create_devel.sql
 
 xbuild People.sln
 
-nunit-console4.exe People/People.Test/bin/People.Test.dll
+nunit-console4 ./People.Test/bin/Debug/People.Test.dll
