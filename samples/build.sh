@@ -4,4 +4,4 @@ mysql < create_devel.sql
 
 xbuild People.sln
 
-echo "Add run tests..."
+nunit-console4.exe People/People.Test/bin/People.Test.dll
