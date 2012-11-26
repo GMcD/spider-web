@@ -6,16 +6,29 @@ using NUnit.Framework;
 using Rum.People;
 using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceClient.Web;
+using System.Net;
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
 
 namespace People.Test
 {
     [TestFixture]
     public class ExerciseTest
     {
+        private static bool ValidateRemoteCertificate(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors policyErrors)
+        {
+            // Logic to determine the validity of the certificate
+            return true;
+        }
+
         private JsonServiceClient jsonRestClient;
         [TestFixtureSetUp]
         public void setUp()
         {
+            // allows for validation of SSL conversations
+            ServicePointManager.ServerCertificateValidationCallback += new RemoteCertificateValidationCallback(
+                ValidateRemoteCertificate
+            );
             jsonRestClient = new JsonServiceClient("https://devel.projectscapa.com/egg/");
         }
 

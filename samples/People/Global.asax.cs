@@ -79,8 +79,8 @@ namespace Rum.People
         /// <param name="e"></param>
         protected void Application_Start(object sender, EventArgs e)
         {
-//            String logConf = Path.Combine(Server.MapPath("/"), "log4net.xml");
-//            log4net.Config.XmlConfigurator.ConfigureAndWatch(new FileInfo(logConf));
+            String logConf = Path.Combine(Server.MapPath("/"), "log4net.xml");
+            log4net.Config.XmlConfigurator.ConfigureAndWatch(new FileInfo(logConf));
             String logFile = Path.Combine(Server.MapPath("/"), "people.log");
 
             log4net.Appender.FileAppender fa = new log4net.Appender.FileAppender();
