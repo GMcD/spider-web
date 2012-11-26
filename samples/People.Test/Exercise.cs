@@ -16,7 +16,7 @@ namespace People.Test
         [TestFixtureSetUp]
         public void setUp()
         {
-            jsonRestClient = new JsonServiceClient("http://members.projectscapa.com/egg/");
+            jsonRestClient = new JsonServiceClient("https://devel.projectscapa.com/egg/");
         }
 
         [Test]

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using ServiceStack.WebHost.Endpoints;
 using ServiceStack.OrmLite;
 using ServiceStack.OrmLite.MySql;
@@ -16,6 +17,9 @@ namespace Rum.People
     /// </summary>
     public class Global : System.Web.HttpApplication
     {
+        private const string pattern = @"%-4x %d %-5p [%c{7}] (%F:%L) - %m%n";
+        private static readonly log4net.ILog m_log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         /// <summary>
         /// Web Service Singleton AppHost
         /// </summary>
@@ -75,10 +79,28 @@ namespace Rum.People
         /// <param name="e"></param>
         protected void Application_Start(object sender, EventArgs e)
         {
+//            String logConf = Path.Combine(Server.MapPath("/"), "log4net.xml");
+//            log4net.Config.XmlConfigurator.ConfigureAndWatch(new FileInfo(logConf));
+            String logFile = Path.Combine(Server.MapPath("/"), "people.log");
+
+            log4net.Appender.FileAppender fa = new log4net.Appender.FileAppender();
+            fa.Name = "FileAppender";
+            fa.File = logFile;
+            fa.Layout = new log4net.Layout.PatternLayout(pattern);
+            fa.Threshold = log4net.Core.Level.Debug;
+            fa.AppendToFile = true;
+            fa.ActivateOptions();
+
+            log4net.Repository.Hierarchy.Hierarchy hierarchy = (log4net.Repository.Hierarchy.Hierarchy)log4net.LogManager.GetRepository();
+            hierarchy.Root.AddAppender(fa);
+            m_log.Info("Copyright Gary MacDonald 2012.");
+
             ServicePointManager.ServerCertificateValidationCallback +=
                 delegate(object requestSender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
                 {
-                    return true; // **** Always accept
+                    m_log.Info("Certificate Validation Callback!");
+                    // **** Always accept for now XXX
+                    return true; 
                 };
             var appHost = new HelloAppHost();
             appHost.Init();

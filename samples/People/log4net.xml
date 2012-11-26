@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+  <configSections>
+    <section name="log4net" type="log4net.Config.Log4NetConfigurationSectionHandler, log4net-net-1.0" />
+  </configSections>
+
+  <log4net>
+    
+    <root>
+      <level value="DEBUG" />
+    </root>
+      
+  </log4net>
+
+</configuration>
