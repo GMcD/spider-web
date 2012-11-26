@@ -5,6 +5,9 @@ using ServiceStack.OrmLite.MySql;
 using System.Configuration;
 using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.Validation;
+using System.Net;
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Rum.People
 {
@@ -72,6 +75,11 @@ namespace Rum.People
         /// <param name="e"></param>
         protected void Application_Start(object sender, EventArgs e)
         {
+            ServicePointManager.ServerCertificateValidationCallback +=
+                delegate(object requestSender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
+                {
+                    return true; // **** Always accept
+                };
             var appHost = new HelloAppHost();
             appHost.Init();
         }
